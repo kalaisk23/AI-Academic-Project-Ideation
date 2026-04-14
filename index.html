@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Academic Project Ideation</title>
+
+<style>
+*{box-sizing:border-box}
+body{
+  font-family:'Segoe UI',sans-serif;
+  margin:0;
+  background:linear-gradient(120deg,#eef2ff,#f9faff);
+}
+header{
+  background:linear-gradient(90deg,#4e54c8,#8f94fb);
+  color:white;
+  padding:18px;
+  text-align:center;
+  font-size:20px;
+}
+.container{
+  width:92%;
+  max-width:920px;
+  margin:25px auto;
+  background:white;
+  padding:25px;
+  border-radius:12px;
+  box-shadow:0 6px 18px rgba(0,0,0,0.08);
+  animation:fade 0.3s ease;
+}
+@keyframes fade{
+  from{opacity:0; transform:translateY(10px)}
+  to{opacity:1; transform:translateY(0)}
+}
+input,select,textarea{
+  width:100%;
+  padding:11px;
+  margin:8px 0;
+  border-radius:7px;
+  border:1px solid #ddd;
+}
+input:focus,select:focus,textarea:focus{
+  border-color:#4e54c8;
+  outline:none;
+}
+.btn{
+  background:linear-gradient(90deg,#4e54c8,#6c72ff);
+  color:white;
+  border:none;
+  padding:11px;
+  border-radius:7px;
+  cursor:pointer;
+  margin-top:8px;
+}
+.btn:hover{transform:scale(1.03)}
+.back{background:#e6e8ff;color:#333}
+.card{
+  border:1px solid #eee;
+  padding:15px;
+  border-radius:10px;
+  margin:12px 0;
+  background:#fafaff;
+}
+.hidden{display:none}
+h3{margin-top:0;color:#4e54c8}
+</style>
+</head>
+
+<body>
+
+<header>🚀 AI Academic Project Ideation Platform</header>
+
+<!-- LOGIN -->
+<div class="container" id="loginPage">
+<h3>Login</h3>
+<input type="text" placeholder="Username">
+<input type="password" placeholder="Password">
+<button class="btn" onclick="showPage('formPage')">Login</button>
+</div>
+
+<!-- FORM -->
+<div class="container hidden" id="formPage">
+<h3>Generate Project Ideas</h3>
+
+<label>Domain</label>
+<select id="domain">
+<option>AI</option>
+<option>Web Development</option>
+<option>IoT</option>
+<option>Cybersecurity</option>
+<option>Data Science</option>
+</select>
+
+<label>Interest Area</label>
+<input type="text">
+
+<label>Skills</label>
+<input type="text">
+
+<label>Experience</label>
+<select id="level">
+<option>Beginner</option>
+<option>Intermediate</option>
+<option>Advanced</option>
+</select>
+
+<label>Team Members</label>
+<input type="number">
+
+<label>Timeline</label>
+<select>
+<option>1 Week</option>
+<option>1 Month</option>
+<option>3 Months</option>
+</select>
+
+<button class="btn" onclick="generateIdeas()">Generate Ideas</button>
+<button class="btn back" onclick="showPage('loginPage')">⬅ Back</button>
+</div>
+
+<!-- IDEAS -->
+<div class="container hidden" id="ideasPage">
+<h3>Top Problem Statements</h3>
+<div id="ideasList"></div>
+<button class="btn back" onclick="showPage('formPage')">⬅ Back</button>
+</div>
+
+<!-- DETAILS -->
+<div class="container hidden" id="detailsPage">
+<h3>Problem Details</h3>
+<p id="problemText"></p>
+
+<h4>Existing</h4>
+<p>Traditional systems exist but lack intelligence and automation.</p>
+
+<h4>Tech Stack</h4>
+<p>Python, ML, HTML, CSS, JavaScript, Database</p>
+
+<h4>Innovation</h4>
+<p>AI-powered automation and intelligent decision making.</p>
+
+<button class="btn" onclick="generateRoadmap()">Generate Roadmap</button>
+<button class="btn back" onclick="showPage('ideasPage')">⬅ Back</button>
+</div>
+
+<!-- ROADMAP -->
+<div class="container hidden" id="roadmapPage">
+<h3>AI Generated Development Roadmap</h3>
+<ol>
+<li>Understand Problem</li>
+<li>Literature Survey</li>
+<li>System Design</li>
+<li>Dataset Collection</li>
+<li>Model Development</li>
+<li>Testing</li>
+<li>Documentation</li>
+<li>Deployment</li>
+</ol>
+
+<button class="btn" onclick="generateArchitecture()">Generate AI Architecture</button>
+<button class="btn back" onclick="showPage('detailsPage')">⬅ Back</button>
+</div>
+
+<!-- ARCHITECTURE -->
+<div class="container hidden" id="architecturePage">
+<h3>AI Generated System Architecture</h3>
+<div id="architectureBox" class="card"></div>
+<button class="btn back" onclick="showPage('roadmapPage')">⬅ Back</button>
+</div>
+
+<script>
+
+/* Page Switch */
+function showPage(id){
+  document.querySelectorAll(".container").forEach(p=>p.classList.add("hidden"));
+  document.getElementById(id).classList.remove("hidden");
+}
+
+/* Generate Ideas */
+function generateIdeas(){
+  let domain=document.getElementById("domain").value;
+  let level=document.getElementById("level").value;
+
+  let ideas=[
+    "AI Smart Traffic Management",
+    "AI Healthcare Prediction System",
+    "Smart Agriculture using IoT",
+    "AI Student Performance Analyzer",
+    "Cybersecurity Intrusion Detection"
+  ];
+
+  let list=document.getElementById("ideasList");
+  list.innerHTML="";
+
+  ideas.forEach(i=>{
+    list.innerHTML+=`
+    <div class="card">
+      <h4>${i}</h4>
+      <p><b>Domain:</b> ${domain} | <b>Level:</b> ${level}</p>
+      <button class="btn" onclick="viewDetails('${i}')">View Details</button>
+    </div>`;
+  });
+
+  showPage("ideasPage");
+}
+
+/* View Details */
+function viewDetails(problem){
+  document.getElementById("problemText").innerText=problem;
+  showPage("detailsPage");
+}
+
+/* Roadmap */
+function generateRoadmap(){
+  showPage("roadmapPage");
+}
+
+/* AI Architecture Generator (Simulated) */
+function generateArchitecture(){
+
+  let architecture = `
+  <h4>System Architecture Layers</h4>
+  <ul>
+    <li><b>Presentation Layer:</b> HTML, CSS, JavaScript UI</li>
+    <li><b>Application Layer:</b> Idea Generator, Roadmap Engine, Guidance Module</li>
+    <li><b>AI Engine:</b> NLP Idea Generator + Similarity Detection</li>
+    <li><b>Database Layer:</b> Project Ideas, User Profiles, Knowledge Base</li>
+    <li><b>Integration Layer:</b> API communication between UI and AI</li>
+    <li><b>Output Layer:</b> Problem Statement, Roadmap, Architecture</li>
+  </ul>
+
+  <h4>Workflow</h4>
+  <p>
+  User → Enter Preferences → AI Idea Generator → Select Problem → 
+  AI Roadmap → AI Architecture → Final Output
+  </p>
+  `;
+
+  document.getElementById("architectureBox").innerHTML = architecture;
+  showPage("architecturePage");
+}
+
+</script>
+
+</body>
+</html>
